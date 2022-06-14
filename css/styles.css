@@ -1,0 +1,44 @@
+.bg-maroon {
+  background-color: #a25b5b;
+}
+
+.bg-bamboo {
+  background-color: #d5d8b5;
+}
+
+button {
+  cursor: pointer;
+  background-color: #a25b5b;
+  color: white;
+}
+
+input[type="range"] {
+  appearance: none;
+  width: 250px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 250px;
+  height: 5px;
+  background: white;
+  border: none;
+  border-radius: 3px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #a25b5b;
+  margin-top: -4px;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+input[type="range"]:focus::-webkit-slider-runnable-track {
+  background: white;
+}
