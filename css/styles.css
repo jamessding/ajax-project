@@ -49,5 +49,10 @@ input[type="range"]:focus::-webkit-slider-runnable-track {
 
 .bg-image {
   background-image: url("/images/bamboo.jpeg");
+  height: 100vh;
   background-size: contain;
+}
+
+.food-input {
+  font-size: 20px;
 }
