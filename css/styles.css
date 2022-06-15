@@ -1,0 +1,58 @@
+.bg-green {
+  background-color: #4a6247;
+}
+
+button {
+  cursor: pointer;
+  background-color: #4a6247;
+  color: white;
+}
+
+button:active {
+  background-color: #cc9c75;
+}
+
+input[type="range"] {
+  appearance: none;
+  width: 200px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 250px;
+  height: 5px;
+  background: #4a6247;
+  border: none;
+  border-radius: 3px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #4a6247;
+  margin-top: -4px;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+input[type="range"]:focus::-webkit-slider-runnable-track {
+  background: #4a6247;
+}
+
+.selected {
+  background-color: #cc9c75;
+}
+
+.bg-image {
+  background-image: url("/images/bamboo.jpeg");
+  height: 100vh;
+  background-size: contain;
+}
+
+.food-input {
+  font-size: 20px;
+}
