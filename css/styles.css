@@ -1,14 +1,10 @@
-.bg-maroon {
-  background-color: #a25b5b;
-}
-
-.bg-bamboo {
-  background-color: #d5d8b5;
+.bg-green {
+  background-color: #4a6247;
 }
 
 button {
   cursor: pointer;
-  background-color: #a25b5b;
+  background-color: #4a6247;
   color: white;
 }
 
@@ -18,13 +14,13 @@ button:active {
 
 input[type="range"] {
   appearance: none;
-  width: 250px;
+  width: 200px;
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
   width: 250px;
   height: 5px;
-  background: white;
+  background: #4a6247;
   border: none;
   border-radius: 3px;
 }
@@ -35,7 +31,7 @@ input[type="range"]::-webkit-slider-thumb {
   height: 16px;
   width: 16px;
   border-radius: 50%;
-  background: #a25b5b;
+  background: #4a6247;
   margin-top: -4px;
 }
 
@@ -44,9 +40,14 @@ input[type="range"]:focus {
 }
 
 input[type="range"]:focus::-webkit-slider-runnable-track {
-  background: white;
+  background: #4a6247;
 }
 
 .selected {
   background-color: #cc9c75;
+}
+
+.bg-image {
+  background-image: url("/images/bamboo.jpeg");
+  background-size: contain;
 }
