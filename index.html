@@ -21,7 +21,7 @@
     </div>
   </header>
   <main class="m-2">
-    <div class="container view hidden" data-view="search-form">
+    <div class="container view" data-view="search-form">
       <form class="form">
         <div class="row align-items-center mt-5">
           <h1>Find Restaurants Near You</h1>
@@ -30,10 +30,10 @@
           <div class="col-md-6 col-sm-12">
             <div class="row align-items-center mt-5">
               <h2 class="pr-5">Pricing:</h2>
-              <button class="price-button mr-2 btn-sm">$</button>
-              <button class="price-button mr-2 btn-sm">$$</button>
-              <button class="price-button mr-2 btn-sm">$$$</button>
-              <button class="price-button mr-2 btn-sm">$$$$</button>
+              <button value="1" class="price-button mr-2 btn-sm">$</button>
+              <button value="2" class="price-button mr-2 btn-sm">$$</button>
+              <button value="3" class="price-button mr-2 btn-sm">$$$</button>
+              <button value="4" class="price-button mr-2 btn-sm">$$$$</button>
             </div>
           </div>
           <div class="col-md-6 col-sm-12">
@@ -41,7 +41,7 @@
               <h2 class="pr-5">Distance:</h2>
               <div>
                 <span>0 mi</span>
-                <input type="range" min="0" max="20" step="2">
+                <input class="distance-input" type="range" min="0" max="20" step="2">
                 <span>20 mi</span>
               </div>
             </div>
