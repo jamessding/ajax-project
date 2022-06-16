@@ -1,10 +1,16 @@
+/* global data */
 var $priceButtons = document.querySelectorAll('.price-button');
 var $form = document.querySelector('.form');
 var $foodInput = document.querySelector('.food-input');
-var pricing = null;
-var distance = 10;
-var foodType = '';
 var $distanceInput = document.querySelector('.distance-input');
+
+function success(pos) {
+  const crd = pos.coords;
+  data.latitude = crd.latitude;
+  data.longitude = crd.longitude;
+}
+
+window.navigator.geolocation.getCurrentPosition(success);
 
 function getRestaurantData() {
   var targetUrl = encodeURIComponent('https://api.yelp.com/v3/businesses/search?term=ramen&sort_by=rating&price=2&limit=10&longitude=-117.74030913862956&latitude=33.635285701367316');
@@ -21,7 +27,7 @@ function getRestaurantData() {
 function handleSubmit(event) {
   event.preventDefault();
   if (event.submitter.textContent === 'Show All Results!') {
-    getRestaurantData(pricing, distance, foodType);
+    getRestaurantData(data.pricing, data.distance, data.foodType, data.latitude, data.longitude);
   } else if (event.submitter.textContent === 'Pick For Me!') {
     getRestaurantData();
   }
@@ -34,7 +40,7 @@ $form.addEventListener('click', function (e) {
     for (var i = 0; i < $priceButtons.length; i++) {
       if ($priceButtons[i].textContent === event.target.textContent) {
         $priceButtons[i].classList.add('selected');
-        pricing = event.target.value;
+        data.pricing = event.target.value;
       } else {
         $priceButtons[i].classList.remove('selected');
       }
@@ -43,9 +49,9 @@ $form.addEventListener('click', function (e) {
 });
 
 $distanceInput.addEventListener('change', function (e) {
-  distance = $distanceInput.valueAsNumber;
+  data.distance = $distanceInput.valueAsNumber;
 });
 
 $foodInput.addEventListener('change', function (e) {
-  foodType = $foodInput.value;
+  data.foodType = $foodInput.value;
 });
