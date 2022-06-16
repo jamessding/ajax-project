@@ -56,3 +56,17 @@ input[type="range"]:focus::-webkit-slider-runnable-track {
 .food-input {
   font-size: 20px;
 }
+
+.card-img {
+  height: 280px;
+  object-fit: cover;
+}
+
+.card {
+  width: 450px;
+  height: 280px;
+}
+
+.card-title {
+  padding-left: 1rem;
+}

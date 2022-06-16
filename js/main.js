@@ -1,5 +1,5 @@
-var $priceButtons = document.querySelectorAll('.price-button');
-var $form = document.querySelector('.form');
+// var $priceButtons = document.querySelectorAll('.price-button');
+// var $form = document.querySelector('.form');
 // var foodInput = document.querySelector('.food-input');
 // var pricing = null;
 // var xhr = new XMLHttpRequest();
@@ -25,15 +25,15 @@ var $form = document.querySelector('.form');
 // }
 // $form.addEventListener('submit', handleSubmit);
 
-$form.addEventListener('click', function (event) {
-  if (event.target.className === 'price-button mr-2 btn-sm') {
-    for (var i = 0; i < $priceButtons.length; i++) {
-      if ($priceButtons[i].textContent === event.target.textContent) {
-        $priceButtons[i].classList.add('selected');
-        // pricing = event.target.textContent;
-      } else {
-        $priceButtons[i].classList.remove('selected');
-      }
-    }
-  }
-});
+// $form.addEventListener('click', function (event) {
+//   if (event.target.className === 'price-button mr-2 btn-sm') {
+//     for (var i = 0; i < $priceButtons.length; i++) {
+//       if ($priceButtons[i].textContent === event.target.textContent) {
+//         $priceButtons[i].classList.add('selected');
+//         pricing = event.target.textContent;
+//       } else {
+//         $priceButtons[i].classList.remove('selected');
+//       }
+//     }
+//   }
+// });
