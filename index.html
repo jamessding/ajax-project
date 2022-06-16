@@ -21,55 +21,62 @@
     </div>
   </header>
   <main class="m-2">
-    <div class="container form">
-      <div class="row align-items-center mt-5">
-        <h1>Find Restaurants Near You</h1>
-      </div>
-      <div class="row">
-        <div class="col-md-6 col-sm-12">
-          <div class="row align-items-center mt-5">
-            <h2 class="pr-5">Pricing:</h2>
-            <button class="price-button mr-2 btn-sm">$</button>
-            <button class="price-button mr-2 btn-sm">$$</button>
-            <button class="price-button mr-2 btn-sm">$$$</button>
-            <button class="price-button mr-2 btn-sm">$$$$</button>
-          </div>
+    <div class="container view" data-view="search-form">
+      <form class="form">
+        <div class="row align-items-center mt-5">
+          <h1>Find Restaurants Near You</h1>
         </div>
-        <div class="col-md-6 col-sm-12">
-          <div class="row align-items-center mt-5">
-            <h2 class="pr-5">Distance:</h2>
-            <div>
-              <span>0 mi</span>
-              <input type="range" min="0" max="20" step="2">
-              <span>20 mi</span>
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <div class="row align-items-center mt-5">
+              <h2 class="pr-5">Pricing:</h2>
+              <button class="price-button mr-2 btn-sm">$</button>
+              <button class="price-button mr-2 btn-sm">$$</button>
+              <button class="price-button mr-2 btn-sm">$$$</button>
+              <button class="price-button mr-2 btn-sm">$$$$</button>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <div class="row align-items-center mt-5">
+              <h2 class="pr-5">Distance:</h2>
+              <div>
+                <span>0 mi</span>
+                <input type="range" min="0" max="20" step="2">
+                <span>20 mi</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="row mt-5 pt-lg-5">
-        <div class="col-md-6 col-sm-12">
-          <div class="row align-items-center">
-            <h2 class="pr-5 pr-2">Type of Food:</h2>
-            <input class="food-input" type="text">
+        <div class="row mt-5 pt-lg-5">
+          <div class="col-md-6 col-sm-12">
+            <div class="row align-items-center">
+              <h2 class="pr-5 pr-2">Type of Food:</h2>
+              <input class="food-input" type="search">
+            </div>
           </div>
         </div>
-      </div>
-      <div class="row pt-lg-5">
-        <div class="col-md-4 col-sm-12">
-          <div class="row align-items-center justify-content-center mt-4">
-            <button class="btn-lg">Show All Results!</button>
+        <div class="row pt-lg-5">
+          <div class="col-md-4 col-sm-12">
+            <div class="row align-items-center justify-content-center mt-4">
+              <button class="btn-lg">Show All Results!</button>
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-12">
+            <div class="row align-items-center justify-content-center mt-4">
+              <h2>OR</h2>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <div class="row align-items-center justify-content-center mt-4">
+              <button class="btn-lg">Pick For Me!</button>
+            </div>
           </div>
         </div>
-        <div class="col-md-2 col-sm-12">
-          <div class="row align-items-center justify-content-center mt-4">
-            <h2>OR</h2>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-12">
-          <div class="row align-items-center justify-content-center mt-4">
-            <button class="btn-lg">Pick For Me!</button>
-          </div>
-        </div>
+      </form>
+    </div>
+    <div class="container view hidden" data-view="results">
+      <div class="row align-items-center mt-5">
+        <h1>Best Restaurants Near You</h1>
       </div>
     </div>
   </main>
