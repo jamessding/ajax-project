@@ -14,14 +14,14 @@
 <body class="bg-image">
   <header class="bg-green">
     <div class="container">
-      <div class="row text-white">
+      <a class="logo row text-white">
         <img src="images/logo.svg">
         <h1 class="ml-2">Hungry Panda</h1>
-      </div>
+      </a>
     </div>
   </header>
   <main class="m-2">
-    <div class="container view" data-view="search-form">
+    <div class="container view hidden" data-view="search-form">
       <form class="form">
         <div class="row align-items-center mt-5">
           <h1>Find Restaurants Near You</h1>
@@ -58,7 +58,7 @@
         <div class="row pt-lg-5">
           <div class="col-md-4 col-sm-12">
             <div class="row align-items-center justify-content-center mt-4">
-              <button class="btn-lg">Show All Results!</button>
+              <button class="btn-lg search-button">Show All Results!</button>
             </div>
           </div>
           <div class="col-md-2 col-sm-12">
@@ -68,15 +68,15 @@
           </div>
           <div class="col-md-4 col-sm-12">
             <div class="row align-items-center justify-content-center mt-4">
-              <button class="btn-lg">Pick For Me!</button>
+              <button class="btn-lg search-button">Pick For Me!</button>
             </div>
           </div>
         </div>
       </form>
     </div>
-    <div class="container view" data-view="results">
+    <div class="container view hidden" data-view="results">
       <div class="row align-items-center mt-5 mb-5">
-        <h1>Best Restaurants Near You</h1>
+        <h1 class="results-title">Best Restaurants Near You</h1>
       </div>
       <ul class="row result-list">
         <!-- <li>

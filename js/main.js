@@ -4,7 +4,9 @@ var $form = document.querySelector('.form');
 var $foodInput = document.querySelector('.food-input');
 var $distanceInput = document.querySelector('.distance-input');
 var $resultList = document.querySelector('.result-list');
-
+var $views = document.querySelectorAll('.view');
+var $resultsTitle = document.querySelector('.results-title');
+var $logo = document.querySelector('.logo');
 function success(pos) {
   const crd = pos.coords;
   data.latitude = crd.latitude;
@@ -21,47 +23,37 @@ function getRestaurantData(pricing, foodType, latitude, longitude) {
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     data.results = xhr.response;
+    for (var i = 0; i < data.results.businesses.length; i++) {
+      if (data.results.businesses[i].distance < data.distance) {
+        var renderedResult = renderResult(data.results.businesses[i]);
+        $resultList.appendChild(renderedResult);
+      }
+    }
   });
   xhr.send();
 }
 
 function handleSubmit(event) {
   event.preventDefault();
+  if (!event.submitter.classList.contains('search-button')) {
+    return;
+  }
+  $resultList.innerHTML = '';
   if (event.submitter.textContent === 'Show All Results!') {
     getRestaurantData(data.pricing, data.foodType, data.latitude, data.longitude);
-    for (var i = 0; i < data.results.businesses.length; i++) {
-      renderResult(data.results.businesses[i]);
-      $resultList.appendChild(renderResult(data.results.businesses[i]));
-    }
   } else if (event.submitter.textContent === 'Pick For Me!') {
     getRestaurantData(data.pricing, data.foodType, data.latitude, data.longitude);
     var randomNum = Math.floor(Math.random() * 10);
-    renderResult(data.results.businesses[randomNum]);
+    var renderedResult = renderResult(data.results.businesses[randomNum]);
+    $resultList.appendChild(renderedResult);
+    $resultsTitle.textContent = "Here's What We Picked For You";
+  }
+  viewSwap('results');
+  $form.reset();
+  for (var j = 0; j < $priceButtons.length; j++) {
+    $priceButtons[j].classList.remove('selected');
   }
 }
-
-// <li>
-//  <div class="col-md-6 col-sm-12">
-//    <div class="card mb-5 shadow">
-//      <div class="row no-gutters">
-//        <div class="col-6">
-//          <img src="https://s3-media1.fl.yelpcdn.com/bphoto/vW5_ZhieLVsbNVousdugFw/o.jpg" class="card-img" alt="...">
-//        </div>
-//        <div class="col-6">
-//          <div class="card-body">
-//            <h5 class="card-title">Marufuku Ramen Irvine</h5>
-//            <ul class="list-group list-group-flush">
-//              <li class="list-group-item">Rating: 4.5</li>
-//              <li class="list-group-item">Pricing: $$</li>
-//              <li class="list-group-item">Distance: 0.8 mi</li>
-//              <li class="list-group-item">Open</li>
-//            </ul>
-//          </div>
-//        </div>
-//      </div>
-//    </div>
-//  </div>
-// </li >
 
 function renderResult(resultObject) {
   var resultLi = document.createElement('li');
@@ -108,21 +100,31 @@ function renderResult(resultObject) {
   ul.appendChild(distanceLi);
   var openLi = document.createElement('li');
   openLi.className = 'list-group-item';
-  openLi.textContent = 'Closed Now: ' + resultObject.is_closed;
+  if (resultObject.is_closed) {
+    openLi.textContent = 'Closed';
+    openLi.classList.add('text-red');
+  } else {
+    openLi.textContent = 'Open';
+    openLi.classList.add('text-green');
+  }
   ul.appendChild(openLi);
   return resultLi;
 }
 
-// $resultList.appendChild(renderResult({
-//   image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/vW5_ZhieLVsbNVousdugFw/o.jpg',
-//   name: 'Marufuku Ramen Irvine',
-//   rating: 4.5,
-//   price: '$$',
-//   distance: 1245.6448383293518,
-//   is_closed: false
-// }));
-// $resultList.appendChild(renderResult(data.results.businesses[0]));
-// console.log(data.results.businesses[0]);
+function viewSwap(dataview) {
+  data.view = dataview;
+  for (var i = 0; i < $views.length; i++) {
+    if ($views[i].getAttribute('data-view') === dataview) {
+      $views[i].classList.remove('hidden');
+    } else {
+      $views[i].classList.add('hidden');
+    }
+  }
+}
+
+$logo.addEventListener('click', function (e) {
+  viewSwap('search-form');
+});
 
 $form.addEventListener('submit', handleSubmit);
 
@@ -147,3 +149,5 @@ $distanceInput.addEventListener('change', function (e) {
 $foodInput.addEventListener('change', function (e) {
   data.foodType = $foodInput.value;
 });
+
+viewSwap('search-form');

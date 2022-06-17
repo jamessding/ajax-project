@@ -10,6 +10,10 @@
   color: #df0906;
 }
 
+a {
+  cursor: pointer;
+}
+
 button {
   cursor: pointer;
   background-color: #4a6247;
@@ -23,6 +27,7 @@ button:active {
 input[type="range"] {
   appearance: none;
   width: 200px;
+  cursor: pointer;
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
@@ -66,13 +71,13 @@ input[type="range"]:focus::-webkit-slider-runnable-track {
 }
 
 .card-img {
-  height: 280px;
+  height: 300px;
   object-fit: cover;
 }
 
 .card {
-  width: 450px;
-  height: 280px;
+  width: 470px;
+  height: 300px;
 }
 
 .card-title {
@@ -83,4 +88,8 @@ ul {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+li {
+  line-height: 1rem;
 }

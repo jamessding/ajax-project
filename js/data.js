@@ -4,7 +4,7 @@ var data = {
   view: 'search-form',
   results: [],
   pricing: null,
-  distance: 10,
+  distance: 16093.4,
   foodType: '',
   latitude: null,
   longitude: null
@@ -18,4 +18,5 @@ if (previousDataJSON !== null) {
 window.addEventListener('beforeunload', function (event) {
   var dataJSON = JSON.stringify(data);
   localStorage.setItem('data-local-storage', dataJSON);
+  // this.localStorage.clear();
 });
