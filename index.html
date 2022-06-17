@@ -21,7 +21,7 @@
     </div>
   </header>
   <main class="m-2">
-    <div class="container view hidden" data-view="search-form">
+    <div class="container view" data-view="search-form">
       <form class="form">
         <div class="row align-items-center mt-5">
           <h1>Find Restaurants Near You</h1>
@@ -78,27 +78,29 @@
       <div class="row align-items-center mt-5 mb-5">
         <h1>Best Restaurants Near You</h1>
       </div>
-      <div class="row">
-        <div class="col-md-6 col-sm-12">
-          <div class="card mb-5 shadow">
-            <div class="row no-gutters">
-              <div class="col-6">
-                <img src="https://s3-media1.fl.yelpcdn.com/bphoto/vW5_ZhieLVsbNVousdugFw/o.jpg" class="card-img" alt="...">
-              </div>
-              <div class="col-6">
-                <div class="card-body">
-                  <h5 class="card-title">Marufuku Ramen Irvine</h5>
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Rating: 4.5</li>
-                    <li class="list-group-item">Pricing: $$</li>
-                    <li class="list-group-item">Distance: 0.8 mi</li>
-                    <li class="list-group-item">Open</li>
-                  </ul>
+      <ul class="row result-list">
+        <!-- <li>
+          <div class="col-md-6 col-sm-12">
+            <div class="card mb-5 shadow">
+              <div class="row no-gutters">
+                <div class="col-6">
+                  <img src="https://s3-media1.fl.yelpcdn.com/bphoto/vW5_ZhieLVsbNVousdugFw/o.jpg" class="card-img" alt="...">
+                </div>
+                <div class="col-6">
+                  <div class="card-body">
+                    <h5 class="card-title">Marufuku Ramen Irvine</h5>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">Rating: 4.5</li>
+                      <li class="list-group-item">Pricing: $$</li>
+                      <li class="list-group-item">Distance: 0.8 mi</li>
+                      <li class="list-group-item">Open</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </li>
         <div class="col-md-6 col-sm-12">
           <div class="card mb-5 shadow">
             <div class="row no-gutters">
@@ -158,8 +160,8 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </div> -->
+      </ul>
     </div>
   </main>
   <script src="js/data.js"></script>
