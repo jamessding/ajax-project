@@ -29,8 +29,14 @@ function handleSubmit(event) {
   event.preventDefault();
   if (event.submitter.textContent === 'Show All Results!') {
     getRestaurantData(data.pricing, data.foodType, data.latitude, data.longitude);
+    for (var i = 0; i < data.results.businesses.length; i++) {
+      renderResult(data.results.businesses[i]);
+      $resultList.appendChild(renderResult(data.results.businesses[i]));
+    }
   } else if (event.submitter.textContent === 'Pick For Me!') {
-    getRestaurantData();
+    getRestaurantData(data.pricing, data.foodType, data.latitude, data.longitude);
+    var randomNum = Math.floor(Math.random() * 10);
+    renderResult(data.results.businesses[randomNum]);
   }
 }
 
@@ -115,7 +121,7 @@ function renderResult(resultObject) {
 //   distance: 1245.6448383293518,
 //   is_closed: false
 // }));
-$resultList.appendChild(renderResult(data.results.businesses[0]));
+// $resultList.appendChild(renderResult(data.results.businesses[0]));
 // console.log(data.results.businesses[0]);
 
 $form.addEventListener('submit', handleSubmit);
