@@ -2,6 +2,18 @@
   background-color: #4a6247;
 }
 
+.text-green {
+  color: #00a16d;
+}
+
+.text-red {
+  color: #df0906;
+}
+
+a {
+  cursor: pointer;
+}
+
 button {
   cursor: pointer;
   background-color: #4a6247;
@@ -15,6 +27,7 @@ button:active {
 input[type="range"] {
   appearance: none;
   width: 200px;
+  cursor: pointer;
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
@@ -55,4 +68,28 @@ input[type="range"]:focus::-webkit-slider-runnable-track {
 
 .food-input {
   font-size: 20px;
+}
+
+.card-img {
+  height: 300px;
+  object-fit: cover;
+}
+
+.card {
+  width: 470px;
+  height: 300px;
+}
+
+.card-title {
+  padding-left: 1rem;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  line-height: 1rem;
 }
