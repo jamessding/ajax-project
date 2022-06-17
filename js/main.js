@@ -21,15 +21,26 @@ function getRestaurantData(pricing, foodType, latitude, longitude) {
   xhr.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrl);
   xhr.setRequestHeader('Authorization', 'Bearer MbKadfH9UntdZg1702Vgp-gkFYQJHo4wEIwqYtEW84YrOZ68OX6RYcWme1b_ZdDHYopYPY_WqyddKZjPXGtxbR2Qc-OxznKUWkSKz7KVa9MANZLBlp4Th7fjxcykYnYx');
   xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
-    data.results = xhr.response;
-    for (var i = 0; i < data.results.businesses.length; i++) {
-      if (data.results.businesses[i].distance < data.distance) {
-        var renderedResult = renderResult(data.results.businesses[i]);
-        $resultList.appendChild(renderedResult);
+  if (event.submitter.textContent === 'Show All Results!') {
+    xhr.addEventListener('load', function () {
+      data.results = xhr.response;
+      for (var i = 0; i < data.results.businesses.length; i++) {
+        if (data.results.businesses[i].distance < data.distance) {
+          var renderedResult = renderResult(data.results.businesses[i]);
+          $resultList.appendChild(renderedResult);
+        }
       }
-    }
-  });
+    });
+  } else {
+    xhr.addEventListener('load', function () {
+      data.results = xhr.response;
+      var randomNum = Math.floor(Math.random() * 10);
+      var renderedResult = renderResult(data.results.businesses[randomNum]);
+      $resultList.appendChild(renderedResult);
+      $resultsTitle.textContent = "Here's What We Picked For You";
+    });
+  }
+
   xhr.send();
 }
 
@@ -39,15 +50,7 @@ function handleSubmit(event) {
     return;
   }
   $resultList.innerHTML = '';
-  if (event.submitter.textContent === 'Show All Results!') {
-    getRestaurantData(data.pricing, data.foodType, data.latitude, data.longitude);
-  } else if (event.submitter.textContent === 'Pick For Me!') {
-    getRestaurantData(data.pricing, data.foodType, data.latitude, data.longitude);
-    var randomNum = Math.floor(Math.random() * 10);
-    var renderedResult = renderResult(data.results.businesses[randomNum]);
-    $resultList.appendChild(renderedResult);
-    $resultsTitle.textContent = "Here's What We Picked For You";
-  }
+  getRestaurantData(data.pricing, data.foodType, data.latitude, data.longitude);
   viewSwap('results');
   $form.reset();
   for (var j = 0; j < $priceButtons.length; j++) {
@@ -122,8 +125,17 @@ function viewSwap(dataview) {
   }
 }
 
+function resetData(e) {
+  data.view = 'search-form';
+  data.results = [];
+  data.pricing = null;
+  data.distance = 16093.4;
+  data.foodType = '';
+}
+
 $logo.addEventListener('click', function (e) {
   viewSwap('search-form');
+  resetData();
 });
 
 $form.addEventListener('submit', handleSubmit);
@@ -151,3 +163,4 @@ $foodInput.addEventListener('change', function (e) {
 });
 
 viewSwap('search-form');
+resetData();
