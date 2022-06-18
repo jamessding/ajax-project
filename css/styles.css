@@ -93,3 +93,12 @@ ul {
 li {
   line-height: 1rem;
 }
+
+.hours {
+  line-height: 1.5rem;
+}
+
+.long {
+  width: 18rem;
+  height: 22rem;
+}

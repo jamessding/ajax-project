@@ -44,6 +44,29 @@ function getRestaurantData(pricing, foodType, latitude, longitude) {
   xhr.send();
 }
 
+// var targetUrl = encodeURIComponent('https://api.yelp.com/v3/businesses/o5r9VGf3R4qlRAPI5TOkAQ');
+// var xhr = new XMLHttpRequest();
+// xhr.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrl);
+// xhr.setRequestHeader('Authorization', 'Bearer MbKadfH9UntdZg1702Vgp-gkFYQJHo4wEIwqYtEW84YrOZ68OX6RYcWme1b_ZdDHYopYPY_WqyddKZjPXGtxbR2Qc-OxznKUWkSKz7KVa9MANZLBlp4Th7fjxcykYnYx');
+// xhr.responseType = 'json';
+// xhr.addEventListener('load', function () {
+//   data.restaurant = xhr.response;
+// });
+// xhr.send();
+
+function getDetails(id) {
+  var targetUrl = encodeURIComponent('https://api.yelp.com/v3/businesses/' + id);
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrl);
+  xhr.setRequestHeader('Authorization', 'Bearer MbKadfH9UntdZg1702Vgp-gkFYQJHo4wEIwqYtEW84YrOZ68OX6RYcWme1b_ZdDHYopYPY_WqyddKZjPXGtxbR2Qc-OxznKUWkSKz7KVa9MANZLBlp4Th7fjxcykYnYx');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    data.restaurant = xhr.response;
+    var renderedDetails = renderDetails(data.restaurant);
+    $resultList.appendChild(renderedDetails);
+  });
+}
+
 function handleSubmit(event) {
   event.preventDefault();
   if (!event.submitter.classList.contains('search-button')) {
@@ -58,8 +81,71 @@ function handleSubmit(event) {
   }
 }
 
+function handleCardClick(event) {
+  getDetails(event.target.closest('li.result').id);
+}
+
+$resultList.addEventListener('click', handleCardClick);
+
+/* <li>
+  <div class="col-md-6 col-sm-12">
+    <div class="card long shadow">
+      <div class="card-body">
+        <h5 class="card-title">Location and Hours</h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">8543 Irvine Center Dr Irvine, CA 92618</li>
+          <li class="list-group-item hours">Mon: 11:00 AM - 9:00 PM<br>Tue: 11:00 AM - 9:00 PM<br>Wed: 11:00 AM - 9:00
+            PM<br>Thu: 11:00 AM - 9:00 PM<br>Fri: 11:00 AM - 9:00 PM<br>Sat: 11:00 AM - 9:00 PM<br>Sun: 11:00 AM - 9:00 PM
+          </li>
+          <li class="list-group-item">(949) 418-7448</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</li> */
+function renderDetails(restaurant) {
+  var resultLi = document.createElement('li');
+  resultLi.setAttribute('id', restaurant.id);
+  resultLi.className = 'result-li';
+  var colDiv = document.createElement('div');
+  colDiv.className = 'col-md-6 col-sm-12';
+  resultLi.appendChild(colDiv);
+  var cardDiv = document.createElement('div');
+  cardDiv.className = 'card long shadow';
+  colDiv.appendChild(cardDiv);
+  var cardBodyDiv = document.createElement('div');
+  cardBodyDiv.className = 'card-body';
+  colDiv.appendChild(cardBodyDiv);
+  var cardTitle = document.createElement('h5');
+  cardTitle.className = 'card-title';
+  cardTitle.textContent = 'Location and Hours';
+  cardBodyDiv.appendChild(cardTitle);
+  var ul = document.createElement('ul');
+  ul.className = 'list-group list-group-flush';
+  cardBodyDiv.appendChild(ul);
+  var addressLi = document.createElement('li');
+  addressLi.className = 'list-group-item';
+  addressLi.textContent = restaurant.location.display_address;
+  ul.appendChild(addressLi);
+  var hoursLi = document.createElement('li');
+  hoursLi.className = 'list-group-item hours';
+  hoursLi.textContent = 'change me';
+  // var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  // for (var i = 0; i < restaurant.hours[0].open.length; i++) {
+  //   hoursLi.textContent += days[i] + ': ' + restaurant.hours[0].open[0].start;
+  // }
+  ul.appendChild(hoursLi);
+  var phoneLi = document.createElement('li');
+  phoneLi.className = 'list-group-item';
+  phoneLi.textContent = restaurant.display_phone;
+  ul.appendChild(phoneLi);
+  return resultLi;
+}
+
 function renderResult(resultObject) {
   var resultLi = document.createElement('li');
+  resultLi.setAttribute('id', resultObject.id);
+  resultLi.className = 'result';
   var colDiv = document.createElement('div');
   colDiv.className = 'col-md-6 col-sm-12';
   resultLi.appendChild(colDiv);
@@ -131,6 +217,7 @@ function resetData(e) {
   data.pricing = null;
   data.distance = 16093.4;
   data.foodType = '';
+  data.restaurant = null;
 }
 
 $logo.addEventListener('click', function (e) {
