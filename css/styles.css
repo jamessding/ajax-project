@@ -100,5 +100,14 @@ li {
 
 .long {
   width: 18rem;
-  height: 22rem;
+  height: auto;
+}
+
+.table-borderless {
+  width: 14rem;
+  border-collapse: collapse;
+}
+
+.days {
+  padding-right: 0.5rem;
 }

@@ -62,9 +62,16 @@ function getDetails(id) {
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     data.restaurant = xhr.response;
+    var $resultLiList = document.querySelectorAll('li.result');
+    for (var i = 0; i < $resultLiList.length; i++) {
+      if ($resultLiList[i].id !== data.restaurant.id) {
+        $resultLiList[i].classList.add('hidden');
+      }
+    }
     var renderedDetails = renderDetails(data.restaurant);
     $resultList.appendChild(renderedDetails);
   });
+  xhr.send();
 }
 
 function handleSubmit(event) {
@@ -87,22 +94,6 @@ function handleCardClick(event) {
 
 $resultList.addEventListener('click', handleCardClick);
 
-/* <li>
-  <div class="col-md-6 col-sm-12">
-    <div class="card long shadow">
-      <div class="card-body">
-        <h5 class="card-title">Location and Hours</h5>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">8543 Irvine Center Dr Irvine, CA 92618</li>
-          <li class="list-group-item hours">Mon: 11:00 AM - 9:00 PM<br>Tue: 11:00 AM - 9:00 PM<br>Wed: 11:00 AM - 9:00
-            PM<br>Thu: 11:00 AM - 9:00 PM<br>Fri: 11:00 AM - 9:00 PM<br>Sat: 11:00 AM - 9:00 PM<br>Sun: 11:00 AM - 9:00 PM
-          </li>
-          <li class="list-group-item">(949) 418-7448</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</li> */
 function renderDetails(restaurant) {
   var resultLi = document.createElement('li');
   resultLi.setAttribute('id', restaurant.id);
@@ -115,7 +106,7 @@ function renderDetails(restaurant) {
   colDiv.appendChild(cardDiv);
   var cardBodyDiv = document.createElement('div');
   cardBodyDiv.className = 'card-body';
-  colDiv.appendChild(cardBodyDiv);
+  cardDiv.appendChild(cardBodyDiv);
   var cardTitle = document.createElement('h5');
   cardTitle.className = 'card-title';
   cardTitle.textContent = 'Location and Hours';
@@ -129,11 +120,42 @@ function renderDetails(restaurant) {
   ul.appendChild(addressLi);
   var hoursLi = document.createElement('li');
   hoursLi.className = 'list-group-item hours';
-  hoursLi.textContent = 'change me';
-  // var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  // for (var i = 0; i < restaurant.hours[0].open.length; i++) {
-  //   hoursLi.textContent += days[i] + ': ' + restaurant.hours[0].open[0].start;
-  // }
+  var table = document.createElement('table');
+  table.className = 'table-borderless';
+  hoursLi.appendChild(table);
+  var tbody = document.createElement('tbody');
+  table.appendChild(tbody);
+  var days = ['Mon:', 'Tue:', 'Wed:', 'Thu:', 'Fri:', 'Sat:', 'Sun:'];
+  var counter = 0;
+  var times = ['', '', '', '', '', '', ''];
+  for (var i = 0; i < restaurant.hours[0].open.length; i++) {
+    var startHour = restaurant.hours[0].open[i].start.slice(0, 2);
+    var startMinutes = restaurant.hours[0].open[i].start.slice(-2);
+    var endHour = restaurant.hours[0].open[i].end.slice(0, 2);
+    var endMinutes = restaurant.hours[0].open[i].end.slice(-2);
+    var startAmOrPm = startHour >= 12 ? 'PM' : 'AM';
+    var endAmOrPm = endHour >= 12 ? 'PM' : 'AM';
+    if (restaurant.hours[0].open[i].day === counter) {
+      times[counter] += ' ' + ((startHour % 12) || 12) + ':' + startMinutes + ' ' + startAmOrPm + ' - ' + ((endHour % 12) || 12) + ':' + endMinutes + ' ' + endAmOrPm;
+    } else {
+      counter++;
+      i--;
+    }
+  }
+  for (var j = 0; j < days.length; j++) {
+    if (times[j] === '') {
+      times[j] = 'Closed';
+    }
+    var tr = document.createElement('tr');
+    tbody.appendChild(tr);
+    var tdDay = document.createElement('td');
+    tdDay.className = 'days';
+    tdDay.textContent = days[j];
+    tr.appendChild(tdDay);
+    var tdHours = document.createElement('td');
+    tdHours.textContent = times[j];
+    tr.appendChild(tdHours);
+  }
   ul.appendChild(hoursLi);
   var phoneLi = document.createElement('li');
   phoneLi.className = 'list-group-item';
