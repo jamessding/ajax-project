@@ -7,6 +7,7 @@ var $resultList = document.querySelector('.result-list');
 var $views = document.querySelectorAll('.view');
 var $resultsTitle = document.querySelector('.results-title');
 var $logo = document.querySelector('.logo');
+var $resultsContainer = document.querySelector('.results');
 function success(pos) {
   const crd = pos.coords;
   data.latitude = crd.latitude;
@@ -44,6 +45,42 @@ function getRestaurantData(pricing, foodType, latitude, longitude) {
   xhr.send();
 }
 
+function getDetails(id) {
+  var targetUrl = encodeURIComponent('https://api.yelp.com/v3/businesses/' + id);
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrl);
+  xhr.setRequestHeader('Authorization', 'Bearer MbKadfH9UntdZg1702Vgp-gkFYQJHo4wEIwqYtEW84YrOZ68OX6RYcWme1b_ZdDHYopYPY_WqyddKZjPXGtxbR2Qc-OxznKUWkSKz7KVa9MANZLBlp4Th7fjxcykYnYx');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    data.restaurant = xhr.response;
+    var $resultLiList = document.querySelectorAll('li.result');
+    for (var i = 0; i < $resultLiList.length; i++) {
+      if ($resultLiList[i].id !== data.restaurant.id) {
+        $resultLiList[i].classList.add('hidden');
+      }
+    }
+    var renderedDetails = renderDetails(data.restaurant);
+    $resultList.appendChild(renderedDetails);
+    var backButton = renderBackButton();
+    $resultsContainer.appendChild(backButton);
+    backButton.addEventListener('click', handleBackClick);
+  });
+  xhr.send();
+}
+
+function handleBackClick(event) {
+  event.preventDefault();
+  var $resultLiList = document.querySelectorAll('li.result');
+  for (var i = 0; i < $resultLiList.length; i++) {
+    $resultLiList[i].classList.remove('hidden');
+  }
+  var detailsCard = document.querySelector('.result-li');
+  var backButton = document.querySelector('.back-button');
+  $resultList.removeChild(detailsCard);
+  $resultsContainer.removeChild(backButton);
+  data.restaurant = null;
+}
+
 function handleSubmit(event) {
   event.preventDefault();
   if (!event.submitter.classList.contains('search-button')) {
@@ -58,8 +95,99 @@ function handleSubmit(event) {
   }
 }
 
+function handleCardClick(event) {
+  if (data.restaurant !== null) {
+    return;
+  }
+  getDetails(event.target.closest('li.result').id);
+}
+
+function renderBackButton() {
+  var row = document.createElement('div');
+  row.className = 'row back-button align-items-center justify-content-center mt-4';
+  var backButton = document.createElement('button');
+  backButton.textContent = 'Back To Results';
+  backButton.className = 'btn-lg';
+  row.appendChild(backButton);
+  return row;
+}
+
+$resultList.addEventListener('click', handleCardClick);
+
+function renderDetails(restaurant) {
+  var resultLi = document.createElement('li');
+  resultLi.setAttribute('id', restaurant.id);
+  resultLi.className = 'result-li';
+  var colDiv = document.createElement('div');
+  colDiv.className = 'col-md-6 col-sm-12';
+  resultLi.appendChild(colDiv);
+  var cardDiv = document.createElement('div');
+  cardDiv.className = 'card long shadow';
+  colDiv.appendChild(cardDiv);
+  var cardBodyDiv = document.createElement('div');
+  cardBodyDiv.className = 'card-body';
+  cardDiv.appendChild(cardBodyDiv);
+  var cardTitle = document.createElement('h5');
+  cardTitle.className = 'card-title';
+  cardTitle.textContent = 'Location and Hours';
+  cardBodyDiv.appendChild(cardTitle);
+  var ul = document.createElement('ul');
+  ul.className = 'list-group list-group-flush';
+  cardBodyDiv.appendChild(ul);
+  var addressLi = document.createElement('li');
+  addressLi.className = 'list-group-item';
+  addressLi.textContent = restaurant.location.display_address;
+  ul.appendChild(addressLi);
+  var hoursLi = document.createElement('li');
+  hoursLi.className = 'list-group-item hours';
+  var table = document.createElement('table');
+  table.className = 'table-borderless';
+  hoursLi.appendChild(table);
+  var tbody = document.createElement('tbody');
+  table.appendChild(tbody);
+  var days = ['Mon:', 'Tue:', 'Wed:', 'Thu:', 'Fri:', 'Sat:', 'Sun:'];
+  var counter = 0;
+  var times = ['', '', '', '', '', '', ''];
+  for (var i = 0; i < restaurant.hours[0].open.length; i++) {
+    var startHour = restaurant.hours[0].open[i].start.slice(0, 2);
+    var startMinutes = restaurant.hours[0].open[i].start.slice(-2);
+    var endHour = restaurant.hours[0].open[i].end.slice(0, 2);
+    var endMinutes = restaurant.hours[0].open[i].end.slice(-2);
+    var startAmOrPm = startHour >= 12 ? 'PM' : 'AM';
+    var endAmOrPm = endHour >= 12 ? 'PM' : 'AM';
+    if (restaurant.hours[0].open[i].day === counter) {
+      times[counter] += ' ' + ((startHour % 12) || 12) + ':' + startMinutes + ' ' + startAmOrPm + ' - ' + ((endHour % 12) || 12) + ':' + endMinutes + ' ' + endAmOrPm;
+    } else {
+      counter++;
+      i--;
+    }
+  }
+  for (var j = 0; j < days.length; j++) {
+    if (times[j] === '') {
+      times[j] = 'Closed';
+    }
+    var tr = document.createElement('tr');
+    tbody.appendChild(tr);
+    var tdDay = document.createElement('td');
+    tdDay.className = 'days';
+    tdDay.textContent = days[j];
+    tr.appendChild(tdDay);
+    var tdHours = document.createElement('td');
+    tdHours.textContent = times[j];
+    tr.appendChild(tdHours);
+  }
+  ul.appendChild(hoursLi);
+  var phoneLi = document.createElement('li');
+  phoneLi.className = 'list-group-item';
+  phoneLi.textContent = restaurant.display_phone;
+  ul.appendChild(phoneLi);
+  return resultLi;
+}
+
 function renderResult(resultObject) {
   var resultLi = document.createElement('li');
+  resultLi.setAttribute('id', resultObject.id);
+  resultLi.className = 'result';
   var colDiv = document.createElement('div');
   colDiv.className = 'col-md-6 col-sm-12';
   resultLi.appendChild(colDiv);
@@ -131,6 +259,7 @@ function resetData(e) {
   data.pricing = null;
   data.distance = 16093.4;
   data.foodType = '';
+  data.restaurant = null;
 }
 
 $logo.addEventListener('click', function (e) {

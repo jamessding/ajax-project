@@ -7,7 +7,8 @@ var data = {
   distance: 16093.4,
   foodType: '',
   latitude: null,
-  longitude: null
+  longitude: null,
+  restaurant: null
 };
 
 var previousDataJSON = localStorage.getItem('data-local-storage');
