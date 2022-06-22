@@ -7,6 +7,7 @@ var $resultList = document.querySelector('.result-list');
 var $views = document.querySelectorAll('.view');
 var $resultsTitle = document.querySelector('.results-title');
 var $logo = document.querySelector('.logo');
+var $resultsContainer = document.querySelector('.results');
 function success(pos) {
   const crd = pos.coords;
   data.latitude = crd.latitude;
@@ -70,8 +71,24 @@ function getDetails(id) {
     }
     var renderedDetails = renderDetails(data.restaurant);
     $resultList.appendChild(renderedDetails);
+    var backButton = renderBackButton();
+    $resultsContainer.appendChild(backButton);
+    backButton.addEventListener('click', handleBackClick);
   });
   xhr.send();
+}
+
+function handleBackClick(event) {
+  event.preventDefault();
+  var $resultLiList = document.querySelectorAll('li.result');
+  for (var i = 0; i < $resultLiList.length; i++) {
+    $resultLiList[i].classList.remove('hidden');
+  }
+  var detailsCard = document.querySelector('.result-li');
+  var backButton = document.querySelector('.back-button');
+  $resultList.removeChild(detailsCard);
+  $resultsContainer.removeChild(backButton);
+  data.restaurant = null;
 }
 
 function handleSubmit(event) {
@@ -89,7 +106,20 @@ function handleSubmit(event) {
 }
 
 function handleCardClick(event) {
+  if (data.restaurant !== null) {
+    return;
+  }
   getDetails(event.target.closest('li.result').id);
+}
+
+function renderBackButton() {
+  var row = document.createElement('div');
+  row.className = 'row back-button align-items-center justify-content-center mt-4';
+  var backButton = document.createElement('button');
+  backButton.textContent = 'Back To Results';
+  backButton.className = 'btn-lg';
+  row.appendChild(backButton);
+  return row;
 }
 
 $resultList.addEventListener('click', handleCardClick);
