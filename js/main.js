@@ -96,7 +96,7 @@ function handleSubmit(event) {
 }
 
 function handleCardClick(event) {
-  if (data.restaurant !== null) {
+  if (data.restaurant !== null || event.target.tagName === 'I') {
     return;
   }
   getDetails(event.target.closest('li.result').id);
@@ -243,6 +243,12 @@ function renderResult(resultObject) {
   saveLi.className = 'list-group-item';
   var saveIcon = document.createElement('i');
   saveIcon.className = 'far fa-heart fa-3x';
+  for (var i = 0; i < data.favorites.length; i++) {
+    if (resultObject.id === data.favorites[i].id) {
+      saveIcon.className = 'fas fa-heart fa-3x';
+      break;
+    }
+  }
   saveLi.appendChild(saveIcon);
   ul.appendChild(saveLi);
   return resultLi;
@@ -259,7 +265,7 @@ function viewSwap(dataview) {
   }
 }
 
-function resetData(e) {
+function resetData() {
   data.view = 'search-form';
   data.results = [];
   data.pricing = null;
@@ -267,6 +273,29 @@ function resetData(e) {
   data.foodType = '';
   data.restaurant = null;
 }
+
+function clickSaveIcon(event) {
+  if (event.target.tagName !== 'I') {
+    return;
+  }
+  if (event.target.classList.contains('far')) {
+    event.target.classList.replace('far', 'fas');
+    for (var i = 0; i < data.results.businesses.length; i++) {
+      if (data.results.businesses[i].id === event.target.closest('li.result').id) {
+        data.favorites.push(data.results.businesses[i]);
+      }
+    }
+  } else if (event.target.classList.contains('fas')) {
+    event.target.classList.replace('fas', 'far');
+    for (var j = 0; j < data.favorites.length; j++) {
+      if (data.favorites[j].id === event.target.closest('li.result').id) {
+        data.favorites.splice(j, 1);
+      }
+    }
+  }
+}
+
+document.addEventListener('click', clickSaveIcon);
 
 $logo.addEventListener('click', function (e) {
   viewSwap('search-form');

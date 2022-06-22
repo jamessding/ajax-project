@@ -111,3 +111,7 @@ li {
 .days {
   padding-right: 0.5rem;
 }
+
+i {
+  color: red;
+}
