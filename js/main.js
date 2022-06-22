@@ -239,6 +239,12 @@ function renderResult(resultObject) {
     openLi.classList.add('text-green');
   }
   ul.appendChild(openLi);
+  var saveLi = document.createElement('li');
+  saveLi.className = 'list-group-item';
+  var saveIcon = document.createElement('i');
+  saveIcon.className = 'far fa-heart fa-3x';
+  saveLi.appendChild(saveIcon);
+  ul.appendChild(saveLi);
   return resultLi;
 }
 
