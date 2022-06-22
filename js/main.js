@@ -45,16 +45,6 @@ function getRestaurantData(pricing, foodType, latitude, longitude) {
   xhr.send();
 }
 
-// var targetUrl = encodeURIComponent('https://api.yelp.com/v3/businesses/o5r9VGf3R4qlRAPI5TOkAQ');
-// var xhr = new XMLHttpRequest();
-// xhr.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrl);
-// xhr.setRequestHeader('Authorization', 'Bearer MbKadfH9UntdZg1702Vgp-gkFYQJHo4wEIwqYtEW84YrOZ68OX6RYcWme1b_ZdDHYopYPY_WqyddKZjPXGtxbR2Qc-OxznKUWkSKz7KVa9MANZLBlp4Th7fjxcykYnYx');
-// xhr.responseType = 'json';
-// xhr.addEventListener('load', function () {
-//   data.restaurant = xhr.response;
-// });
-// xhr.send();
-
 function getDetails(id) {
   var targetUrl = encodeURIComponent('https://api.yelp.com/v3/businesses/' + id);
   var xhr = new XMLHttpRequest();
