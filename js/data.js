@@ -8,7 +8,8 @@ var data = {
   foodType: '',
   latitude: null,
   longitude: null,
-  restaurant: null
+  restaurant: null,
+  favorites: []
 };
 
 var previousDataJSON = localStorage.getItem('data-local-storage');
