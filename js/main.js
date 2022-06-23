@@ -62,9 +62,15 @@ function getDetails(id) {
     }
     var renderedDetails = renderDetails(data.restaurant);
     $resultList.appendChild(renderedDetails);
-    var backButton = renderBackButton();
-    $resultsContainer.appendChild(backButton);
-    backButton.addEventListener('click', handleBackClick);
+    if ($resultsTitle.textContent !== "Here's What We Picked For You") {
+      if ($resultsTitle.textContent === 'Best Restaurants Near You') {
+        var backButton = renderBackButton('Back To Results');
+      } else if ($resultsTitle.textContent === 'Favorites List') {
+        backButton = renderBackButton('Back To Favorites');
+      }
+      $resultsContainer.appendChild(backButton);
+      backButton.addEventListener('click', handleBackClick);
+    }
     $resultsTitle.textContent = 'Restaurant Details';
   });
   xhr.send();
@@ -81,7 +87,11 @@ function handleBackClick(event) {
   $resultList.removeChild(detailsCard);
   $resultsContainer.removeChild(backButton);
   data.restaurant = null;
-  $resultsTitle.textContent = 'Best Restaurants Near You';
+  if (backButton.textContent === 'Back To Favorites') {
+    $resultsTitle.textContent = 'Favorites List';
+  } else if (backButton.textContent === 'Back To Results') {
+    $resultsTitle.textContent = 'Best Restaurants Near You';
+  }
 }
 
 function handleSubmit(event) {
@@ -99,17 +109,20 @@ function handleSubmit(event) {
 }
 
 function handleCardClick(event) {
-  if (data.restaurant !== null || event.target.tagName === 'I') {
+  if (event.target.tagName === 'I') {
+    return;
+  }
+  if (data.restaurant !== null && $resultsTitle.textContent !== 'Favorites List') {
     return;
   }
   getDetails(event.target.closest('li.result').id);
 }
 
-function renderBackButton() {
+function renderBackButton(string) {
   var row = document.createElement('div');
   row.className = 'row back-button align-items-center justify-content-center mt-4';
   var backButton = document.createElement('button');
-  backButton.textContent = 'Back To Results';
+  backButton.textContent = string;
   backButton.className = 'btn-lg';
   row.appendChild(backButton);
   return row;
@@ -299,7 +312,7 @@ function clickSaveIcon(event) {
 }
 
 function clickFavorites(event) {
-  $resultList.innerHTML = '';
+  $resultList.textContent = '';
   viewSwap('results');
   $form.reset();
   for (var i = 0; i < data.favorites.length; i++) {
