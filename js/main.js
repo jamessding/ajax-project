@@ -6,8 +6,8 @@ var $distanceInput = document.querySelector('.distance-input');
 var $resultList = document.querySelector('.result-list');
 var $views = document.querySelectorAll('.view');
 var $resultsTitle = document.querySelector('.results-title');
-var $logo = document.querySelector('.logo');
 var $resultsContainer = document.querySelector('.results');
+var $favorites = document.querySelector('.favorites');
 function success(pos) {
   const crd = pos.coords;
   data.latitude = crd.latitude;
@@ -29,6 +29,7 @@ function getRestaurantData(pricing, foodType, latitude, longitude) {
         if (data.results.businesses[i].distance < data.distance) {
           var renderedResult = renderResult(data.results.businesses[i]);
           $resultList.appendChild(renderedResult);
+          $resultsTitle.textContent = 'Best Restaurants Near You';
         }
       }
     });
@@ -64,6 +65,7 @@ function getDetails(id) {
     var backButton = renderBackButton();
     $resultsContainer.appendChild(backButton);
     backButton.addEventListener('click', handleBackClick);
+    $resultsTitle.textContent = 'Restaurant Details';
   });
   xhr.send();
 }
@@ -79,6 +81,7 @@ function handleBackClick(event) {
   $resultList.removeChild(detailsCard);
   $resultsContainer.removeChild(backButton);
   data.restaurant = null;
+  $resultsTitle.textContent = 'Best Restaurants Near You';
 }
 
 function handleSubmit(event) {
@@ -295,11 +298,26 @@ function clickSaveIcon(event) {
   }
 }
 
+function clickFavorites(event) {
+  $resultList.innerHTML = '';
+  viewSwap('results');
+  $form.reset();
+  for (var i = 0; i < data.favorites.length; i++) {
+    var renderedResult = renderResult(data.favorites[i]);
+    $resultList.appendChild(renderedResult);
+  }
+  $resultsTitle.textContent = 'Favorites List';
+}
+
 document.addEventListener('click', clickSaveIcon);
 
-$logo.addEventListener('click', function (e) {
-  viewSwap('search-form');
-  resetData();
+$favorites.addEventListener('click', clickFavorites);
+
+document.addEventListener('click', function (e) {
+  if (event.target.classList.contains('logo')) {
+    viewSwap('search-form');
+    resetData();
+  }
 });
 
 $form.addEventListener('submit', handleSubmit);
