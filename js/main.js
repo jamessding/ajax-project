@@ -200,6 +200,87 @@ function renderDetails(restaurant) {
   return resultLi;
 }
 
+/* <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img class="d-block w-100" src="https://s3-media0.fl.yelpcdn.com/bphoto/vW5_ZhieLVsbNVousdugFw/l.jpg" alt="First slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="https://s3-media0.fl.yelpcdn.com/bphoto/QKG6vHm87pJhZZ-1XLXuRA/o.jpg" alt="Second slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="https://s3-media0.fl.yelpcdn.com/bphoto/yNpe6oAD8lhW4ySxLnAn-g/o.jpg" alt="Third slide">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div> */
+
+// function renderCarousel(restaurant) {
+//   var carouselSlide = document.createElement('div');
+//   carouselSlide.id = 'carouselExampleControls';
+//   carouselSlide.className = 'carousel slide';
+//   carouselSlide.setAttribute('data-ride', 'carousel');
+//   var carouselInner = document.createElement('div');
+//   carouselInner.className = 'carousel-inner';
+//   carouselSlide.appendChild(carouselInner);
+//   var firstItem = document.createElement('div');
+//   firstItem.className = 'carousel-item active';
+//   carouselInner.appendChild(firstItem);
+//   var firstImage = document.createElement('img');
+//   firstImage.className = 'd-block w-100';
+//   firstImage.src = restaurant.photos[0];
+//   firstItem.appendChild(firstImage);
+//   var secondItem = document.createElement('div');
+//   secondItem.className = 'carousel-item';
+//   carouselInner.appendChild(secondItem);
+//   var secondImage = document.createElement('img');
+//   secondImage.className = 'd-block w-100';
+//   secondImage.src = restaurant.photos[1];
+//   secondItem.appendChild(secondImage);
+//   var thirdItem = document.createElement('div');
+//   thirdItem.className = 'carousel-item';
+//   carouselInner.appendChild(thirdItem);
+//   var thirdImage = document.createElement('img');
+//   thirdImage.className = 'd-block w-100';
+//   thirdImage.src = restaurant.photos[2];
+//   thirdItem.appendChild(thirdImage);
+//   var controlPrev = document.createElement('a');
+//   controlPrev.className = 'carousel-control-prev';
+//   controlPrev.href = '#carouselExampleControls';
+//   controlPrev.setAttribute('role', 'button');
+//   controlPrev.setAttribute('data-slide', 'prev');
+//   carouselSlide.appendChild(controlPrev);
+//   var prevIcon = document.createElement('span');
+//   prevIcon.className = 'carousel-control-prev-icon';
+//   prevIcon.setAttribute('aria-hidden', 'true');
+//   controlPrev.appendChild(prevIcon);
+//   var prevSr = document.createElement('span');
+//   prevSr.className = 'sr-only';
+//   prevSr.textContent = 'Previous';
+//   controlPrev.appendChild(prevSr);
+//   var controlNext = document.createElement('a');
+//   controlNext.className = 'carousel-control-next';
+//   controlNext.href = '#carouselExampleControls';
+//   controlNext.setAttribute('role', 'button');
+//   controlNext.setAttribute('data-slide', 'next');
+//   carouselSlide.appendChild(controlNext);
+//   var nextIcon = document.createElement('span');
+//   nextIcon.className = 'carousel-control-next-icon';
+//   nextIcon.setAttribute('aria-hidden', 'true');
+//   controlNext.appendChild(nextIcon);
+//   var nextSr = document.createElement('span');
+//   nextSr.className = 'sr-only';
+//   nextSr.textContent = 'Next';
+//   controlNext.appendChild(nextSr);
+// }
+
 function renderResult(resultObject) {
   var resultLi = document.createElement('li');
   resultLi.setAttribute('id', resultObject.id);
@@ -235,7 +316,13 @@ function renderResult(resultObject) {
   cardBodyDiv.appendChild(ul);
   var ratingLi = document.createElement('li');
   ratingLi.className = 'list-group-item';
-  ratingLi.textContent = 'Rating: ' + resultObject.rating;
+  var ratingImage = document.createElement('img');
+  if (Math.floor(resultObject.rating) === resultObject.rating) {
+    ratingImage.src = 'https://budgetbranders.com/wp-content/plugins/restaurant-generator/template/img/extra_large_' + resultObject.rating + '.png';
+  } else {
+    ratingImage.src = 'https://budgetbranders.com/wp-content/plugins/restaurant-generator/template/img/extra_large_' + Math.floor(resultObject.rating) + '_half.png';
+  }
+  ratingLi.appendChild(ratingImage);
   ul.appendChild(ratingLi);
   var priceLi = document.createElement('li');
   priceLi.className = 'list-group-item';

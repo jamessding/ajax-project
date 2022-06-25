@@ -70,14 +70,24 @@ input[type="range"]:focus::-webkit-slider-runnable-track {
   font-size: 20px;
 }
 
+/*
 .card-img {
-  height: 400px;
+  height: 1000px;
   object-fit: cover;
-}
+} */
 
 .card {
-  width: 470px;
+  width: 450px;
   height: auto;
+  transition:
+    0.8s transform cubic-bezier(0.155, 1.105, 0.295, 1.12),
+    0.8s box-shadow,
+    0.8s -webkit-transform cubic-bezier(0.155, 1.105, 0.295, 1.12);
+}
+
+.card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
 }
 
 .card-title {
@@ -114,4 +124,8 @@ li {
 
 i {
   color: red;
+}
+
+img.d-block.w-100 {
+  height: 200px;
 }
