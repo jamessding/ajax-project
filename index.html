@@ -10,13 +10,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bg-image">
   <header class="bg-green">
-    <div class="container">
+    <div class="container hidden">
       <a class="row text-white">
         <img class="logo" src="images/logo.svg">
         <h1 class="ml-2 logo">Hungry Panda</h1>
@@ -26,21 +29,49 @@
   </header>
   <main class="m-2">
     <div class="container view hidden" data-view="search-form">
-      <form class="form">
+      <!-- <div class="card" style="width: 18rem;">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="https://s3-media0.fl.yelpcdn.com/bphoto/vW5_ZhieLVsbNVousdugFw/l.jpg" alt="First slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="https://s3-media0.fl.yelpcdn.com/bphoto/QKG6vHm87pJhZZ-1XLXuRA/o.jpg" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="https://s3-media0.fl.yelpcdn.com/bphoto/yNpe6oAD8lhW4ySxLnAn-g/o.jpg" alt="Third slide">
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Marufuku Ramen Irvine</h5>
+          <img src="https://budgetbranders.com/wp-content/plugins/restaurant-generator/template/img/extra_large_4_half.png"><span class="ml-2">3197</span>
+          <p class="card-text">2.7 mi $$ <i class="far fa-heart fa-3x"></i></p>
+        </div>
+      </div> -->
+      <form class="form text-white">
         <div class="row align-items-center mt-5 mb-5">
           <h1>Find Restaurants Near You</h1>
         </div>
         <div class="row">
-          <div class="col-md-6 col-sm-12">
+          <div class="col-12">
             <div class="row align-items-center mt-5">
-              <h2 class="pr-5">Pricing:</h2>
+              <h2 class="pr-5">Price:</h2>
               <button value="1" class="price-button mr-2 btn-sm">$</button>
               <button value="2" class="price-button mr-2 btn-sm">$$</button>
               <button value="3" class="price-button mr-2 btn-sm">$$$</button>
               <button value="4" class="price-button mr-2 btn-sm">$$$$</button>
             </div>
           </div>
-          <div class="col-md-6 col-sm-12">
+          <div class="col-12">
             <div class="row align-items-center mt-5">
               <h2 class="pr-5">Distance:</h2>
               <div>
@@ -54,7 +85,7 @@
         <div class="row mt-5 pt-lg-5 mb-5">
           <div class="col-12">
             <div class="row align-items-center">
-              <h2 class="pr-5 pr-2">Type of Food:</h2>
+              <h2 class="pr-5">Category:</h2>
               <input class="food-input" type="search">
             </div>
           </div>
@@ -62,7 +93,7 @@
         <div class="row pt-lg-5 justify-content-center">
           <div class="col-md-4 col-sm-12">
             <div class="row align-items-center mt-4 justify-content-center">
-              <button class="btn-lg search-button">Show All Results!</button>
+              <button class="btn-lg search-button">Search</button>
             </div>
           </div>
           <div class="col-md-2 col-sm-12">
@@ -72,7 +103,7 @@
           </div>
           <div class="col-md-4 col-sm-12">
             <div class="row align-items-center mt-4 justify-content-center">
-              <button class="btn-lg search-button">Pick For Me!</button>
+              <button class="btn-lg search-button">Randomize</button>
             </div>
           </div>
         </div>
@@ -86,6 +117,12 @@
       </ul>
     </div>
   </main>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+    integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>
