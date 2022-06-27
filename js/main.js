@@ -62,6 +62,8 @@ function getDetails(id) {
     }
     var renderedDetails = renderDetails(data.restaurant);
     $resultList.appendChild(renderedDetails);
+    var renderedCarousel = renderCarousel(data.restaurant);
+    $resultList.appendChild(renderedCarousel);
     if ($resultsTitle.textContent !== "Here's What We Picked For You") {
       if ($resultsTitle.textContent === 'Best Restaurants Near You') {
         var backButton = renderBackButton('Back To Results');
@@ -222,64 +224,76 @@ function renderDetails(restaurant) {
     </a>
   </div> */
 
-// function renderCarousel(restaurant) {
-//   var carouselSlide = document.createElement('div');
-//   carouselSlide.id = 'carouselExampleControls';
-//   carouselSlide.className = 'carousel slide';
-//   carouselSlide.setAttribute('data-ride', 'carousel');
-//   var carouselInner = document.createElement('div');
-//   carouselInner.className = 'carousel-inner';
-//   carouselSlide.appendChild(carouselInner);
-//   var firstItem = document.createElement('div');
-//   firstItem.className = 'carousel-item active';
-//   carouselInner.appendChild(firstItem);
-//   var firstImage = document.createElement('img');
-//   firstImage.className = 'd-block w-100';
-//   firstImage.src = restaurant.photos[0];
-//   firstItem.appendChild(firstImage);
-//   var secondItem = document.createElement('div');
-//   secondItem.className = 'carousel-item';
-//   carouselInner.appendChild(secondItem);
-//   var secondImage = document.createElement('img');
-//   secondImage.className = 'd-block w-100';
-//   secondImage.src = restaurant.photos[1];
-//   secondItem.appendChild(secondImage);
-//   var thirdItem = document.createElement('div');
-//   thirdItem.className = 'carousel-item';
-//   carouselInner.appendChild(thirdItem);
-//   var thirdImage = document.createElement('img');
-//   thirdImage.className = 'd-block w-100';
-//   thirdImage.src = restaurant.photos[2];
-//   thirdItem.appendChild(thirdImage);
-//   var controlPrev = document.createElement('a');
-//   controlPrev.className = 'carousel-control-prev';
-//   controlPrev.href = '#carouselExampleControls';
-//   controlPrev.setAttribute('role', 'button');
-//   controlPrev.setAttribute('data-slide', 'prev');
-//   carouselSlide.appendChild(controlPrev);
-//   var prevIcon = document.createElement('span');
-//   prevIcon.className = 'carousel-control-prev-icon';
-//   prevIcon.setAttribute('aria-hidden', 'true');
-//   controlPrev.appendChild(prevIcon);
-//   var prevSr = document.createElement('span');
-//   prevSr.className = 'sr-only';
-//   prevSr.textContent = 'Previous';
-//   controlPrev.appendChild(prevSr);
-//   var controlNext = document.createElement('a');
-//   controlNext.className = 'carousel-control-next';
-//   controlNext.href = '#carouselExampleControls';
-//   controlNext.setAttribute('role', 'button');
-//   controlNext.setAttribute('data-slide', 'next');
-//   carouselSlide.appendChild(controlNext);
-//   var nextIcon = document.createElement('span');
-//   nextIcon.className = 'carousel-control-next-icon';
-//   nextIcon.setAttribute('aria-hidden', 'true');
-//   controlNext.appendChild(nextIcon);
-//   var nextSr = document.createElement('span');
-//   nextSr.className = 'sr-only';
-//   nextSr.textContent = 'Next';
-//   controlNext.appendChild(nextSr);
-// }
+/* <div class="card" style="width: 18rem;"> add this to renderCarousel */
+function renderCarousel(restaurant) {
+  var resultLi = document.createElement('li');
+  resultLi.setAttribute('id', restaurant.id);
+  resultLi.className = 'result-li';
+  var colDiv = document.createElement('div');
+  colDiv.className = 'col-md-6 col-sm-12';
+  resultLi.appendChild(colDiv);
+  var cardDiv = document.createElement('div');
+  cardDiv.className = 'card long shadow';
+  colDiv.appendChild(cardDiv);
+  var carouselSlide = document.createElement('div');
+  carouselSlide.id = 'carouselExampleControls';
+  carouselSlide.className = 'carousel slide';
+  carouselSlide.setAttribute('data-ride', 'carousel');
+  cardDiv.appendChild(carouselSlide);
+  var carouselInner = document.createElement('div');
+  carouselInner.className = 'carousel-inner';
+  carouselSlide.appendChild(carouselInner);
+  var firstItem = document.createElement('div');
+  firstItem.className = 'carousel-item active';
+  carouselInner.appendChild(firstItem);
+  var firstImage = document.createElement('img');
+  firstImage.className = 'd-block w-100';
+  firstImage.src = restaurant.photos[0];
+  firstItem.appendChild(firstImage);
+  var secondItem = document.createElement('div');
+  secondItem.className = 'carousel-item';
+  carouselInner.appendChild(secondItem);
+  var secondImage = document.createElement('img');
+  secondImage.className = 'd-block w-100';
+  secondImage.src = restaurant.photos[1];
+  secondItem.appendChild(secondImage);
+  var thirdItem = document.createElement('div');
+  thirdItem.className = 'carousel-item';
+  carouselInner.appendChild(thirdItem);
+  var thirdImage = document.createElement('img');
+  thirdImage.className = 'd-block w-100';
+  thirdImage.src = restaurant.photos[2];
+  thirdItem.appendChild(thirdImage);
+  var controlPrev = document.createElement('a');
+  controlPrev.className = 'carousel-control-prev';
+  controlPrev.href = '#carouselExampleControls';
+  controlPrev.setAttribute('role', 'button');
+  controlPrev.setAttribute('data-slide', 'prev');
+  carouselSlide.appendChild(controlPrev);
+  var prevIcon = document.createElement('span');
+  prevIcon.className = 'carousel-control-prev-icon';
+  prevIcon.setAttribute('aria-hidden', 'true');
+  controlPrev.appendChild(prevIcon);
+  var prevSr = document.createElement('span');
+  prevSr.className = 'sr-only';
+  prevSr.textContent = 'Previous';
+  controlPrev.appendChild(prevSr);
+  var controlNext = document.createElement('a');
+  controlNext.className = 'carousel-control-next';
+  controlNext.href = '#carouselExampleControls';
+  controlNext.setAttribute('role', 'button');
+  controlNext.setAttribute('data-slide', 'next');
+  carouselSlide.appendChild(controlNext);
+  var nextIcon = document.createElement('span');
+  nextIcon.className = 'carousel-control-next-icon';
+  nextIcon.setAttribute('aria-hidden', 'true');
+  controlNext.appendChild(nextIcon);
+  var nextSr = document.createElement('span');
+  nextSr.className = 'sr-only';
+  nextSr.textContent = 'Next';
+  controlNext.appendChild(nextSr);
+  return resultLi;
+}
 
 function renderResult(resultObject) {
   var resultLi = document.createElement('li');

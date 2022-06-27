@@ -1,3 +1,13 @@
+* {
+  font-family:
+    Merriweather,
+    serif;
+}
+
+body {
+  overflow: hidden;
+}
+
 .bg-green {
   background-color: #4a6247;
 }
@@ -61,9 +71,19 @@ input[type="range"]:focus::-webkit-slider-runnable-track {
 }
 
 .bg-image {
-  background-image: url("/images/bamboo.jpeg");
+  /* background-image: url("/images/bamboo.jpeg"); */
+  background-image: url("https://images.pexels.com/photos/920570/pexels-photo-920570.jpeg");
+  background-size: auto 130%;
+  background-repeat: no-repeat;
   height: 100vh;
-  background-size: contain;
+
+  /* height: auto;
+  max-width: 100%;
+  object-fit: cover; */
+
+  /*
+  background-size: cover;
+  background-repeat: no-repeat; */
 }
 
 .food-input {
